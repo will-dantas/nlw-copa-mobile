@@ -1,13 +1,14 @@
 import { ReactNode } from "react";
 
-interface UserProps {
+export interface IUserProps {
   name: string;
   avatarUrl: string;
 };
 
 export interface IAuthContextDataProps {
-  user: UserProps;
+  user: IUserProps;
   signIn: () => Promise<void>;
+  isUserLoading: boolean;
 }
 
 export interface IAuthContextProviderProps {
