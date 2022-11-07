@@ -8,6 +8,7 @@ import {
 } from "@expo-google-fonts/roboto";
 import { Loading } from "./src/components/Loading";
 import SigIn from "./src/screens/Signin";
+import { AuthContextProvider } from "./src/contexts/Auth/AuthContext";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -18,12 +19,14 @@ export default function App() {
 
   return (
     <NativeBaseProvider theme={THEME}>
-      <StatusBar
-        barStyle="light-content"
-        backgroundColor="transparent"
-        translucent
-      />
-      {fontsLoaded ? <SigIn /> : <Loading />}
+      <AuthContextProvider>
+        <StatusBar
+          barStyle="light-content"
+          backgroundColor="transparent"
+          translucent
+        />
+        {fontsLoaded ? <SigIn /> : <Loading />}
+      </AuthContextProvider>
     </NativeBaseProvider>
   );
 }
