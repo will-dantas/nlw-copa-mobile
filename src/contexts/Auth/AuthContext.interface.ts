@@ -7,7 +7,7 @@ export interface IUserProps {
 
 export interface IAuthContextDataProps {
   user: IUserProps;
-  signIn: () => Promise<void>;
+  singIn: () => Promise<void>;
   isUserLoading: boolean;
 }
 

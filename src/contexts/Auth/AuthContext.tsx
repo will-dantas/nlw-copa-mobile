@@ -9,6 +9,8 @@ import * as Google from "expo-auth-session/providers/google";
 import * as AuthSession from "expo-auth-session";
 import * as WebBrowser from "expo-web-browser";
 
+import { api } from "../../services/api";
+
 WebBrowser.maybeCompleteAuthSession();
 
 export const AuthContext = createContext({} as IAuthContextDataProps);
@@ -19,51 +21,52 @@ export function AuthContextProvider({ children }: IAuthContextProviderProps) {
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     clientId:
-      '837489444344-6bp9guikj4tftnt3n8h3ag7mkbroc02a.apps.googleusercontent.com',
+      "837489444344-6bp9guikj4tftnt3n8h3ag7mkbroc02a.apps.googleusercontent.com",
     redirectUri: AuthSession.makeRedirectUri({ useProxy: true }),
     scopes: ["profile", "email"],
   });
 
-  console.log(AuthSession.makeRedirectUri({ useProxy: true }))
-
-  async function signIn() {
+  async function singIn() {
     try {
       setIsUserLoading(true);
-
       await promptAsync();
     } catch (error) {
       console.log(error);
-
       throw error;
     } finally {
       setIsUserLoading(false);
     }
   }
 
-  const signInWithGoogle = useCallback(async (access_token: string) => {
+  async function singInWithGoogle(access_token: string) {
     try {
       setIsUserLoading(true);
 
+      const tokenResponse = await api.post("/users", { access_token });
+      api.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${tokenResponse.data.token}`;
 
+      const userInfoResponse = await api.get("/me");
+      setUser(userInfoResponse.data.user);
     } catch (error) {
       console.log(error);
-
       throw error;
     } finally {
       setIsUserLoading(false);
     }
-  }, []);
+  }
 
   useEffect(() => {
-    if (response?.type === 'success' && response.authentication?.accessToken) {
-      signInWithGoogle(response.authentication.accessToken);
+    if (response?.type === "success" && response.authentication?.accessToken) {
+      singInWithGoogle(response.authentication.accessToken);
     }
-  }, [response, signInWithGoogle]);
+  }, [response]);
 
   return (
     <AuthContext.Provider
       value={{
-        signIn,
+        singIn,
         isUserLoading,
         user,
       }}
