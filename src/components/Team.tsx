@@ -1,29 +1,42 @@
-import { HStack } from 'native-base';
+import { HStack, Text } from "native-base";
 import CountryFlag from "react-native-country-flag";
+import { GameProps } from "./Game";
 
-import { Input } from './Input';
+import { Input } from "./Input";
 
 interface Props {
   code: string;
-  position: 'left' | 'right';
+  position: "left" | "right";
   onChangeText: (value: string) => void;
+  data: GameProps;
+  homeTeam: boolean;
 }
 
-export function Team({ code, position, onChangeText }: Props) {
+export function Team({ code, position, onChangeText, data, homeTeam }: Props) {
   return (
     <HStack alignItems="center">
-      {position === 'left' && <CountryFlag isoCode={code} size={25} style={{ marginRight: 12 }} />}
+      {position === "left" && (
+        <CountryFlag isoCode={code} size={25} style={{ marginRight: 12 }} />
+      )}
 
-      <Input
-        w={10}
-        h={9}
-        textAlign="center"
-        fontSize="xs"
-        keyboardType="numeric"
-        onChangeText={onChangeText}
-      />
+      {data.guess ? (
+        <Text color="white" fontSize={16} fontFamily="heading">
+          {homeTeam ? data.guess.firstTeamPoints : data.guess.secondTeamPoints}
+        </Text>
+      ) : (
+        <Input
+          w={10}
+          h={9}
+          textAlign="center"
+          fontSize="xs"
+          keyboardType="numeric"
+          onChangeText={onChangeText}
+        />
+      )}
 
-      {position === 'right' && <CountryFlag isoCode={code} size={25} style={{ marginLeft: 12 }} />}
+      {position === "right" && (
+        <CountryFlag isoCode={code} size={25} style={{ marginLeft: 12 }} />
+      )}
     </HStack>
   );
 }

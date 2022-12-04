@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
 export interface IUserProps {
+  sub: string;
   name: string;
   avatarUrl: string;
 };
