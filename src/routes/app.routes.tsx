@@ -1,29 +1,29 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { New } from "../screens/New";
 import { Pools } from "../screens/Pools";
-
-import { PlusCircle, SoccerBall } from "phosphor-react-native";
+import { PlusCircle, SoccerBall, UserCircle } from "phosphor-react-native";
 import { useTheme } from "native-base";
 import { Platform } from "react-native";
 import { Find } from "../screens/Find";
 import { Details } from "../screens/Details";
+import { User } from "../screens/User";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
 export const AppRoutes = () => {
   const { colors, sizes } = useTheme();
-  const size = sizes[6];
+  const size = sizes[8];
 
   return (
     <Navigator
       screenOptions={{
         headerShown: false,
-        tabBarLabelPosition: "beside-icon",
+        tabBarLabelPosition: "below-icon",
         tabBarActiveTintColor: colors.yellow[500],
         tabBarInactiveTintColor: colors.gray[300],
         tabBarStyle: {
           position: "absolute",
-          height: 87,
+          height: 85,
           borderTopWidth: 0,
           backgroundColor: colors.gray[800],
         },
@@ -38,7 +38,7 @@ export const AppRoutes = () => {
         component={New}
         options={{
           tabBarIcon: ({ color }) => <PlusCircle color={color} size={size} />,
-          tabBarLabel: "Novo Bolão",
+          tabBarLabel: "",
         }}
       />
       <Screen
@@ -46,18 +46,26 @@ export const AppRoutes = () => {
         component={Pools}
         options={{
           tabBarIcon: ({ color }) => <SoccerBall color={color} size={size} />,
-          tabBarLabel: "Meus bolões",
+          tabBarLabel: "",
+        }}
+      />
+      <Screen
+        name="user"
+        component={User}
+        options={{
+          tabBarIcon: ({ color }) => <UserCircle color={color} size={size} />,
+          tabBarLabel: "",
         }}
       />
       <Screen
         name="find"
         component={Find}
-        options={{ tabBarButton: () => null }}
+        options={{ tabBarStyle: { display: "none" }, tabBarButton: () => null }}
       />
       <Screen
         name="details"
         component={Details}
-        options={{ tabBarButton: () => null }}
+        options={{ tabBarStyle: { display: "none" }, tabBarButton: () => null }}
       />
     </Navigator>
   );

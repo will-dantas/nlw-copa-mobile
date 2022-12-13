@@ -48,7 +48,7 @@ export function New() {
 
   return (
     <VStack flex={1} bgColor="gray.900">
-      <Header title="Criar novo bolão" />
+      <Header title="CRIAR NOVO BOLÃO" />
 
       <VStack mt={8} mx={5} alignItems="center">
         <Image source={Logo as any} style={{ width: 133.2, height: 24 }} />

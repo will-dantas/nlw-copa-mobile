@@ -43,13 +43,16 @@ export function AuthContextProvider({ children }: IAuthContextProviderProps) {
       setIsUserLoading(true);
 
       const tokenResponse = await api.post("/users", { access_token });
-      console.log(tokenResponse);
+      console.log(tokenResponse)
+
       api.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${tokenResponse.data.token}`;
 
       const userInfoResponse = await api.get("/me");
+
       setUser(userInfoResponse.data.user);
+      
     } catch (error) {
       console.log(error);
       throw error;
@@ -61,7 +64,6 @@ export function AuthContextProvider({ children }: IAuthContextProviderProps) {
   useEffect(() => {
     if (response?.type === "success" && response.authentication?.accessToken) {
       singInWithGoogle(response.authentication.accessToken);
-      console.log(response.authentication.accessToken)
     }
   }, [response]);
 

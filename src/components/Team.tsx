@@ -1,4 +1,4 @@
-import { HStack, Text } from "native-base";
+import { Box, HStack, Text } from "native-base";
 import CountryFlag from "react-native-country-flag";
 import { GameProps } from "./Game";
 
@@ -14,15 +14,19 @@ interface Props {
 
 export function Team({ code, position, onChangeText, data, homeTeam }: Props) {
   return (
-    <HStack alignItems="center">
+    <HStack alignItems="center" justifyContent="space-between">
       {position === "left" && (
         <CountryFlag isoCode={code} size={25} style={{ marginRight: 12 }} />
       )}
 
       {data.guess ? (
-        <Text color="white" fontSize={16} fontFamily="heading">
-          {homeTeam ? data.guess.firstTeamPoints : data.guess.secondTeamPoints}
-        </Text>
+        <Box pl={4} pr={4}>
+          <Text color="white" fontSize={16} fontFamily="heading">
+            {homeTeam
+              ? data.guess.firstTeamPoints
+              : data.guess.secondTeamPoints}
+          </Text>
+        </Box>
       ) : (
         <Input
           w={10}

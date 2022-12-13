@@ -4,6 +4,7 @@ export interface IUserProps {
   sub: string;
   name: string;
   avatarUrl: string;
+  email: string;
 };
 
 export interface IAuthContextDataProps {
