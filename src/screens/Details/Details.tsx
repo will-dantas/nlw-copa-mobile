@@ -2,16 +2,16 @@ import { useEffect, useState } from "react";
 import { Clipboard } from "react-native";
 import { HStack, useToast, VStack } from "native-base";
 import { useRoute } from "@react-navigation/native";
+import { api } from "../../services/api";
+import { Header } from "../../components/Header";
+import { Loading } from "../../components/Loading";
+import { PoolPros } from "../../components/PoolCard";
+import { PoolHeader } from "../../components/PoolHeader";
+import { EmptyMyPoolList } from "../../components/EmptyMyPoolList";
+import { Option } from "../../components/Option";
+import { Guesses } from "../../components/Guesses";
+import { Ranking } from "../Ranking/Ranking";
 
-import { api } from "../services/api";
-
-import { Header } from "../components/Header";
-import { Loading } from "../components/Loading";
-import { PoolPros } from "../components/PoolCard";
-import { PoolHeader } from "../components/PoolHeader";
-import { EmptyMyPoolList } from "../components/EmptyMyPoolList";
-import { Option } from "../components/Option";
-import { Guesses } from "../components/Guesses";
 
 interface RoutePrams {
   id: string;
@@ -22,7 +22,6 @@ export function Details() {
     "guesses"
   );
   const [isLoading, setIsLoading] = useState(true);
-  const [isCopy, setIsCopy] = useState(false);
   const [poolDetails, setPoolDetails] = useState<PoolPros>({} as PoolPros);
 
   const route = useRoute();
@@ -60,6 +59,14 @@ export function Details() {
     });
   };
 
+  const PagesOptions = (optionSelected: "guesses" | "ranking") => {
+    return optionSelected === "guesses" ? (
+      <Guesses poolId={poolDetails.id} code={poolDetails.code} />
+    ) : (
+      <Ranking poolId={poolDetails.id} poolsData={poolDetails} />
+    );
+  };
+
   useEffect(() => {
     fetchPoolDetails();
   }, [id]);
@@ -93,7 +100,7 @@ export function Details() {
               onPress={() => setOptionSelected("ranking")}
             />
           </HStack>
-          <Guesses poolId={poolDetails.id} code={poolDetails.code} />
+          {PagesOptions(optionSelected)}
         </VStack>
       ) : (
         <EmptyMyPoolList code={poolDetails.code} />

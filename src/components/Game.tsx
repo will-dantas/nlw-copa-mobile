@@ -22,6 +22,8 @@ export interface GameProps {
   secondTeamCountryCode: string;
   date: string;
   guess: null | GuessProps;
+  golHome?: string;
+  golAway?: string
 }
 
 interface Props {

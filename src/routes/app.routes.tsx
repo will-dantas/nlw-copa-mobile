@@ -1,12 +1,12 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { New } from "../screens/New";
-import { Pools } from "../screens/Pools";
+import { New } from "../screens/User/New";
+import { Pools } from "../screens/Pools/Pools";
 import { PlusCircle, SoccerBall, UserCircle } from "phosphor-react-native";
 import { useTheme } from "native-base";
 import { Platform } from "react-native";
-import { Find } from "../screens/Find";
-import { Details } from "../screens/Details";
-import { User } from "../screens/User";
+import { Find } from "../screens/Find/Find";
+import { Details } from "../screens/Details/Details";
+import { User } from "../screens/User/User";
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
@@ -17,6 +17,9 @@ export const AppRoutes = () => {
   return (
     <Navigator
       screenOptions={{
+        headerStyle: {
+          backgroundColor: "transparent",
+        },
         headerShown: false,
         tabBarLabelPosition: "below-icon",
         tabBarActiveTintColor: colors.yellow[500],

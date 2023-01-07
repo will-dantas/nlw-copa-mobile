@@ -1,17 +1,23 @@
 import { useState } from "react";
 import { Heading, Text, useToast, VStack } from "native-base";
-import { Header } from "../components/Header";
+import { Header } from "../../components/Header";
 import Logo from "../assets/logo.svg";
 import { Image } from "react-native";
-import { Input } from "../components/Input";
-import { Button } from "../components/Button";
-import { api } from "../services/api";
+import { Input } from "../../components/Input";
+import { Button } from "../../components/Button";
+import { api } from "../../services/api";
+import { useAuth } from "../../hooks/useAuth";
 
 export function New() {
   const [title, setTitle] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  const { user } = useAuth();
   const toast = useToast();
+
+  const firstName = (fullName: string) => {
+    const nameSplit: string[] = fullName.split(" ");
+    return nameSplit[0];
+  };
 
   async function handlePoolCreate() {
     if (!title.trim()) {
@@ -55,11 +61,15 @@ export function New() {
         <Heading
           fontFamily="heading"
           color="white"
-          fontSize="xl"
+          fontSize="md"
           my={8}
           textAlign="center"
         >
-          Crie seu próprio bolão da copa {"\n"}e compartilhe entre amigos!
+          Olá{" "}
+          <Text color="yellow.500" fontSize="md">
+            {firstName(user.name)}
+          </Text>
+          ! Crie seu próprio bolão da copa {"\n"}e compartilhe entre amigos!
         </Heading>
         <Input
           mb={2}

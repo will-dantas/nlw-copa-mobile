@@ -11,9 +11,9 @@ export const UserCard = ({ label, value }: UserCardProps) => {
       w={90}
       h={20}
       bgColor="gray.800"
-      borderBottomWidth={3}
-      borderBottomColor="yellow.500"
-      justifyContent="space-between"
+      borderLeftWidth={3}
+      borderLeftColor="yellow.500"
+      justifyContent="space-evenly"
       alignItems="center"
       rounded="sm"
       p={4}

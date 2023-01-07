@@ -1,9 +1,9 @@
 import { Center, Icon, Text, View } from "native-base";
 import { Fontisto } from "@expo/vector-icons";
 import logo from "../assets/logo.svg";
-import { Button } from "../components/Button";
+import { Button } from "../../components/Button";
 import { Image } from "react-native";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../../hooks/useAuth";
 
 export function SignIn() {
   const { singIn, isUserLoading } = useAuth();

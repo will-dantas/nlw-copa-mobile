@@ -1,40 +1,14 @@
 import { useCallback, useState } from "react";
-import {
-  VStack,
-  useToast,
-  HStack,
-  Heading,
-  Text,
-  Avatar,
-  FlatList,
-} from "native-base";
+import { VStack, useToast, HStack, Text, Avatar, FlatList } from "native-base";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
-import { api } from "../services/api";
-import { Header } from "../components/Header";
-import { useAuth } from "../hooks/useAuth";
-import { UserCard } from "../components/UserCard";
-import { EmptyPoolList } from "../components/EmptyPoolList";
-import { PoolCardUser } from "../components/PoolCardUser";
-
-interface CountParticipants {
-  participants: number;
-}
-
-interface IOwnPools {
-  id: string;
-  title: string;
-  _count: CountParticipants;
-}
-
-interface IUserProps {
-  participatingAt: string[];
-  ownPools: IOwnPools[];
-}
-
-interface IUser {
-  user: IUserProps;
-}
+import { api } from "../../services/api";
+import { Header } from "../../components/Header";
+import { useAuth } from "../../hooks/useAuth";
+import { UserCard } from "../../components/UserCard";
+import { PoolCardUser } from "../../components/PoolCardUser";
+import { EmptyPoolUserList } from "../../components/EmptyPoolUserList";
+import { IOwnPools, IUser } from "./User.interface";
 
 export function User() {
   const [isLoading, setIsLoading] = useState(true);
@@ -59,7 +33,7 @@ export function User() {
         participatingAt: participatingSize,
         ownPools: ownPoolsSize,
       });
-      
+
       setPool(response.data.user.ownPools);
     } catch (error) {
       console.log(error);
@@ -128,7 +102,6 @@ export function User() {
       >
         <UserCard label="Bolões" value={userData.participatingAt} />
         <UserCard label="Dono" value={userData.ownPools} />
-        <UserCard label="Ganhos" value={3} />
       </HStack>
 
       <HStack
@@ -138,7 +111,13 @@ export function User() {
         alignItems="center"
         pt={12}
       >
-        <Text color="yellow.500" fontSize="md" pt={3} pb={3} justifyContent="start">
+        <Text
+          color="yellow.500"
+          fontSize="md"
+          pt={3}
+          pb={3}
+          justifyContent="start"
+        >
           Bolões que você criou
         </Text>
       </HStack>
@@ -150,9 +129,9 @@ export function User() {
           <PoolCardUser
             data={item}
             onPress={() => navigate("details", { id: item.id })}
-          ></PoolCardUser>
+          />
         )}
-        ListEmptyComponent={<EmptyPoolList />}
+        ListEmptyComponent={<EmptyPoolUserList />}
         showsVerticalScrollIndicator={false}
         _contentContainerStyle={{ pb: 10 }}
         px={5}

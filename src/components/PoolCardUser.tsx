@@ -1,5 +1,5 @@
 import { Heading, HStack, Text, VStack } from "native-base";
-import { Cube, Heart, Horse, SoccerBall, UsersThree } from "phosphor-react-native";
+import { UsersThree } from "phosphor-react-native";
 import { TouchableOpacity, TouchableOpacityProps, View } from "react-native";
 
 interface CountParticipants {
