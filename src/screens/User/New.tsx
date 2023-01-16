@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Heading, Text, useToast, VStack } from "native-base";
 import { Header } from "../../components/Header";
-import Logo from "../assets/logo.svg";
+import Logo from "../../assets/logo.svg";
 import { Image } from "react-native";
 import { Input } from "../../components/Input";
 import { Button } from "../../components/Button";

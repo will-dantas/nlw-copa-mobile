@@ -1,5 +1,13 @@
 import { useCallback, useState } from "react";
-import { VStack, useToast, HStack, Text, Avatar, FlatList } from "native-base";
+import {
+  VStack,
+  useToast,
+  HStack,
+  Text,
+  Avatar,
+  FlatList,
+  Heading,
+} from "native-base";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 import { api } from "../../services/api";
@@ -9,6 +17,8 @@ import { UserCard } from "../../components/UserCard";
 import { PoolCardUser } from "../../components/PoolCardUser";
 import { EmptyPoolUserList } from "../../components/EmptyPoolUserList";
 import { IOwnPools, IUser } from "./User.interface";
+import { BlurView } from "expo-blur";
+import { StyleSheet } from "react-native";
 
 export function User() {
   const [isLoading, setIsLoading] = useState(true);
@@ -54,73 +64,68 @@ export function User() {
     }, [])
   );
 
+  const stylesBlur = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      height: 20,
+      borderRadius: 20,
+      padding: 20,
+      marginTop: 20,
+      marginLeft: 20,
+      marginRight: 20,
+    },
+  });
+
   return (
     <VStack flex={1} bgColor="gray.900">
       <Header title="PERFIL" />
-      <HStack
-        w="full"
-        h={70}
-        bgColor="gray.800"
-        borderBottomWidth={3}
-        borderBottomColor="yellow.500"
-        justifyContent="center"
-        alignItems="center"
-        mb={3}
-        pt={60}
+      <VStack
+        w="auto"
+        h={210}
+        bgColor="yellow.500"
+        borderWidth={0}
+        borderRadius={20}
+        ml={5}
+        mr={5}
+        mt={5}
+        p={5}
       >
-        <Avatar
-          source={{ uri: user.avatarUrl }}
-          w={20}
-          h={20}
-          rounded="full"
-          borderWidth={2}
-          borderColor="yellow.500"
-          zIndex={999}
-          pb={-20}
-        >
-          {user?.name}
-        </Avatar>
-      </HStack>
+        <HStack justifyContent="start" alignItems="center">
+          <Avatar
+            source={{ uri: user.avatarUrl }}
+            w={20}
+            h={20}
+            rounded="full"
+            borderWidth={2}
+            borderColor="yellow.500"
+            zIndex={999}
+            pb={-20}
+          >
+            {user?.name}
+          </Avatar>
 
-      <HStack
-        w="full"
-        h={10}
-        justifyContent="center"
-        alignItems="center"
-        pt={12}
-      >
-        <Text color="yellow.500" fontSize="lg" fontWeight="bold">
-          {user.name}
-        </Text>
-      </HStack>
+          <VStack pl="2">
+            <Heading color="gray.900" fontSize="2xl" fontFamily="heading">
+              {user.name}
+            </Heading>
 
-      <HStack
-        w="full"
-        justifyContent="space-evenly"
-        alignItems="center"
-        pt={10}
-      >
-        <UserCard label="Bolões" value={userData.participatingAt} />
-        <UserCard label="Dono" value={userData.ownPools} />
-      </HStack>
-
-      <HStack
-        w="full"
-        h={10}
-        justifyContent="center"
-        alignItems="center"
-        pt={12}
-      >
-        <Text
-          color="yellow.500"
-          fontSize="md"
-          pt={3}
-          pb={3}
-          justifyContent="start"
-        >
+            <Text color="gray.900" fontSize="xs">
+              {user.email}
+            </Text>
+          </VStack>
+        </HStack>
+        <HStack w="full" pt={1} justifyContent="center">
+          <UserCard label="Bolões" value={userData.participatingAt} />
+          <UserCard label="Dono" value={userData.ownPools} />
+        </HStack>
+      </VStack>
+      <BlurView intensity={10} style={stylesBlur.container}>
+        <Text color="yellow.500" fontSize="md">
           Bolões que você criou
         </Text>
-      </HStack>
+      </BlurView>
 
       <FlatList
         data={pool}
@@ -136,7 +141,7 @@ export function User() {
         _contentContainerStyle={{ pb: 10 }}
         px={5}
         mt={5}
-        mb={10}
+        mb={16}
       />
     </VStack>
   );

@@ -17,9 +17,6 @@ export const AppRoutes = () => {
   return (
     <Navigator
       screenOptions={{
-        headerStyle: {
-          backgroundColor: "transparent",
-        },
         headerShown: false,
         tabBarLabelPosition: "below-icon",
         tabBarActiveTintColor: colors.yellow[500],
@@ -28,7 +25,14 @@ export const AppRoutes = () => {
           position: "absolute",
           height: 85,
           borderTopWidth: 0,
+          borderTopLeftRadius: 30,
+          borderTopRightRadius: 30,
+          borderBottomLeftRadius: 30,
+          borderBottomRightRadius: 30,
           backgroundColor: colors.gray[800],
+          marginLeft: 20,
+          marginRight: 20,
+          marginBottom: 20,
         },
         tabBarItemStyle: {
           position: "relative",

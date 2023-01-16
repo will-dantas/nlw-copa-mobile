@@ -11,12 +11,11 @@ export const UserCard = ({ label, value }: UserCardProps) => {
       w={90}
       h={20}
       bgColor="gray.800"
-      borderLeftWidth={3}
-      borderLeftColor="yellow.500"
       justifyContent="space-evenly"
       alignItems="center"
-      rounded="sm"
-      p={4}
+      borderRadius={20}
+      p={2}
+      ml={2}
     >
       <VStack
         justifyContent="space-between"
