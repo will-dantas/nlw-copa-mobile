@@ -4,7 +4,7 @@
 
 ## 💻 Projeto
 
-Aplicação Mobiule os bolões da Copa do Mundo 2022.
+Aplicação Mobile os bolões da Copa do Mundo 2022.
 
 ## ✨ Tecnologia
 
